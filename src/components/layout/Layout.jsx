@@ -3,7 +3,7 @@ import { useTheme } from '../../context/ThemeContext';
 import Navbar from './Navbar';
 import Footer from './Footer';
 
-const Layout = ({ children, onResetApp }) => {
+const Layout = ({ children, onResetApp, onViewCalendar }) => {
   const { mode } = useTheme();
   
   return (
@@ -16,7 +16,7 @@ const Layout = ({ children, onResetApp }) => {
         transition: 'background-color 0.3s ease'
       }}
     >
-      <Navbar onResetApp={onResetApp} />
+      <Navbar onResetApp={onResetApp} onViewCalendar={onViewCalendar} />
       <Container 
         component="main" 
         maxWidth="lg" 

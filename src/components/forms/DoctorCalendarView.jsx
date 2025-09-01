@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
+import './DoctorCalendarView.css'
 import { 
-  Box, Typography, Paper, Grid, Button, Divider,
+  Box, Typography, Paper, Button, Divider,
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
-  Dialog, DialogTitle, DialogContent, DialogActions, List, ListItem, ListItemText
+  Dialog, DialogTitle, DialogContent, DialogActions, List, ListItem
 } from '@mui/material';
 import { 
   CalendarMonth, ChevronLeft, ChevronRight, 
@@ -17,68 +18,52 @@ const DoctorCalendarView = () => {
   const [selectedDay, setSelectedDay] = useState(null);
   const [appointmentsOpen, setAppointmentsOpen] = useState(false);
   
-  // Get month and year from current date
   const month = currentDate.getMonth();
   const year = currentDate.getFullYear();
   
-  // Month names for display
   const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
   
-  // Days of the week for display
   const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   
-  // Generate calendar grid
   useEffect(() => {
     const data = generateCalendarData(month, year);
     setCalendarData(data);
   }, [month, year]);
   
-  // Navigate to previous month
   const prevMonth = () => {
     setCurrentDate(new Date(year, month - 1, 1));
   };
   
-  // Navigate to next month
   const nextMonth = () => {
     setCurrentDate(new Date(year, month + 1, 1));
   };
   
-  // Show appointments for a specific day
   const showAppointments = (day) => {
     setSelectedDay(day);
     setAppointmentsOpen(true);
   };
   
-  // Close appointments dialog
   const closeAppointments = () => {
     setAppointmentsOpen(false);
   };
   
-  // Get days in month
   const daysInMonth = new Date(year, month + 1, 0).getDate();
-  
-  // Get first day of month (0 = Sunday, 1 = Monday, etc.)
   const firstDayOfMonth = new Date(year, month, 1).getDay();
   
-  // Generate calendar grid
   const generateCalendarGrid = () => {
     const grid = [];
     let dayCount = 1;
     
-    // Generate weeks
     for (let week = 0; dayCount <= daysInMonth; week++) {
       const days = [];
       
-      // Generate days in a week
       for (let i = 0; i < 7; i++) {
         if ((week === 0 && i < firstDayOfMonth) || dayCount > daysInMonth) {
-          // Empty cell
           days.push(null);
         } else {
-          // Day cell
           const dayData = calendarData.find(d => d.day === dayCount) || {
             day: dayCount,
             appointmentCount: 0,
@@ -126,7 +111,8 @@ const DoctorCalendarView = () => {
           </Button>
         </Box>
         
-        <TableContainer component={Paper} elevation={0} className="border">
+        {/* Calendar Table */}
+        <TableContainer component={Paper} elevation={0} className="border calendar-wrap">
           <Table>
             <TableHead>
               <TableRow>
@@ -144,20 +130,20 @@ const DoctorCalendarView = () => {
                     <TableCell 
                       key={dayIndex} 
                       align="center" 
-                      className={`h-24 w-1/7 ${!day ? 'bg-gray-50' : ''}`}
+                      className={`h-24 w-1/7 ${!day ? 'day-empty' : ''}`}
                     >
                       {day && (
                         <Box className="h-full flex flex-col">
-                          <Typography variant="subtitle1" className="font-medium">
+                          <Typography variant="subtitle1" className="day-number">
                             {day.day}
                           </Typography>
                           
                           {day.appointmentCount > 0 ? (
                             <Box 
-                              className="mt-2 p-1 bg-blue-50 text-blue-700 rounded cursor-pointer hover:bg-blue-100 transition-colors"
+                              className="appt-chip"
                               onClick={() => showAppointments(day)}
                             >
-                              <Typography variant="body2">
+                              <Typography variant="body2" className="appt-text">
                                 {day.appointmentCount} appointment{day.appointmentCount !== 1 ? 's' : ''}
                               </Typography>
                             </Box>
@@ -183,6 +169,7 @@ const DoctorCalendarView = () => {
         onClose={closeAppointments}
         maxWidth="sm"
         fullWidth
+        className="appt-dialog"
       >
         <DialogTitle>
           <Box className="flex items-center">

@@ -1,9 +1,12 @@
-import { TextField, Button, Grid, MenuItem, FormControl, FormHelperText, Box, InputLabel, Select } from '@mui/material';
+import { TextField, Button, Grid, MenuItem, FormControl, FormHelperText, Box, InputLabel, Select, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import FormCard from '../ui/FormCard';
-import { Person } from '@mui/icons-material';
+import { Person, LocalHospital } from '@mui/icons-material';
 import './PatientDetailsForm.css'; // external CSS
+// Using a remote doctor image instead of local file
+
+const doctorImage = 'https://t3.ftcdn.net/jpg/03/19/52/64/240_F_319526449_XOvMGnNoLlPKUgVqPNscEhDsZvlmBSbY.jpg';
 
 // Validation schema
 const validationSchema = Yup.object({
@@ -22,9 +25,9 @@ const validationSchema = Yup.object({
   insurance: Yup.string(),
 });
 
-const PatientDetailsForm = ({ onSubmit, initialValues }) => {
+const PatientDetailsForm = ({ onSubmit }) => {
   const formik = useFormik({
-    initialValues: initialValues || {
+    initialValues: {
       fullName: '',
       gender: '',
       age: '',
@@ -33,18 +36,28 @@ const PatientDetailsForm = ({ onSubmit, initialValues }) => {
       insurance: '',
     },
     validationSchema,
-    onSubmit: (values) => {
-      onSubmit(values);
-    },
+    onSubmit,
   });
 
   return (
-    <FormCard
-      title="Patient Details"
-      subtitle="Please provide your personal information"
-      icon={<Person fontSize="large" />}
-    >
-      <form onSubmit={formik.handleSubmit} className="modern-form">
+    <>
+      <FormCard
+        title="Patient Details"
+        subtitle="Please provide your personal information"
+        icon={<Person fontSize="large" />}
+      >
+        <div className="doctor-image-section">
+          <div className="doctor-image-container">
+            <img src={doctorImage} alt="Doctor" className="doctor-image" />
+          </div>
+          <div className="doctor-info">
+            <h2>New Patient Enrollment</h2>
+          </div>
+          <div className="doctor-decoration">
+            <LocalHospital fontSize="large" />
+          </div>
+        </div>
+        <form onSubmit={formik.handleSubmit} className="modern-form">
         <Grid container spacing={3} direction="column">
           <Grid item xs={12}>
             <TextField
@@ -163,6 +176,7 @@ const PatientDetailsForm = ({ onSubmit, initialValues }) => {
         </Grid>
       </form>
     </FormCard>
+    </>
   );
 };
 

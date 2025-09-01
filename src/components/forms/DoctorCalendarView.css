@@ -1,0 +1,111 @@
+/* ====== Calendar Base ====== */
+.calendar-wrap .MuiTableContainer-root {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+[data-theme="dark"] .calendar-wrap .MuiTableContainer-root {
+  border-color: rgba(255,255,255,0.12);
+}
+
+.calendar-wrap .MuiTableHead-root .MuiTableCell-root {
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  background: rgba(0,0,0,0.02);
+}
+[data-theme="dark"] .calendar-wrap .MuiTableHead-root .MuiTableCell-root {
+  background: rgba(255,255,255,0.04);
+}
+
+/* Day cells */
+.calendar-wrap .MuiTableBody-root .MuiTableCell-root {
+  height: 96px; /* h-24 */
+  vertical-align: top;
+}
+
+/* Empty day cells */
+.calendar-wrap .day-empty {
+  background: rgba(0,0,0,0.025);
+}
+[data-theme="dark"] .calendar-wrap .day-empty {
+  background: rgba(255,255,255,0.04);
+}
+
+/* Day number */
+.calendar-wrap .day-number {
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* Optional: highlight "today" */
+.calendar-wrap .is-today {
+  position: relative;
+}
+.calendar-wrap .is-today .day-number::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  z-index: -1;
+  background: rgba(25,118,210,0.12);
+}
+[data-theme="dark"] .calendar-wrap .is-today .day-number::after {
+  background: rgba(66,165,245,0.18);
+}
+
+/* ====== Appointment Chip (TEXT-ONLY hover color change) ====== */
+/* Parent block you click */
+.appt-chip {
+  margin-top: 8px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: rgba(25,118,210,0.08); /* light blue */
+  transition: background-color 180ms ease;
+  display: inline-flex;
+}
+.appt-chip:hover {
+  background: rgba(25,118,210,0.14);
+}
+
+[data-theme="dark"] .appt-chip {
+  background: rgba(66,165,245,0.12);
+}
+[data-theme="dark"] .appt-chip:hover {
+  background: rgba(66,165,245,0.2);
+}
+
+/* The text inside that changes color on hover */
+.appt-text {
+  color: #1d4ed8; /* tailwind-ish blue-700 */
+  transition: color 180ms ease;
+  font-weight: 500;
+}
+.appt-chip:hover .appt-text {
+  color: #1e3a8a; /* blue-900 */
+}
+
+[data-theme="dark"] .appt-text {
+  color: #93c5fd; /* lighter blue for dark */
+}
+[data-theme="dark"] .appt-chip:hover .appt-text {
+  color: #bfdbfe; /* even lighter on hover */
+}
+
+/* ====== Dialog polish ====== */
+.appt-dialog .MuiDialogTitle-root {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+.appt-dialog .MuiDialogContent-root {
+  background: rgba(0,0,0,0.01);
+}
+[data-theme="dark"] .appt-dialog .MuiDialogContent-root {
+  background: rgba(255,255,255,0.03);
+}

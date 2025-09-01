@@ -69,6 +69,30 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* Back to Appointment Form button */
+.back-to-appointment-btn {
+  background: linear-gradient(135deg, #3a8eff, #6a5acd) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 0.8em 1.5em !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(58, 142, 255, 0.3) !important;
+  transition: all 0.3s ease !important;
+  border: none !important;
+  letter-spacing: 0.5px;
+}
+
+.back-to-appointment-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(58, 142, 255, 0.4) !important;
+  background: linear-gradient(135deg, #2a7dff, #5949c0) !important;
+}
+
+.back-to-appointment-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(58, 142, 255, 0.3) !important;
+}
+
 /* Media query for light color scheme preference */
 @media (prefers-color-scheme: light) {
   :root {

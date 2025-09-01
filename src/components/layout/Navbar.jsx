@@ -1,9 +1,9 @@
-import { AppBar, Toolbar, Typography, IconButton, Box, Container, Avatar } from '@mui/material';
-import { Brightness4, Brightness7, LocalHospital } from '@mui/icons-material';
+import { AppBar, Toolbar, Typography, IconButton, Box, Container, Avatar, Button } from '@mui/material';
+import { Brightness4, Brightness7, LocalHospital, CalendarMonth } from '@mui/icons-material';
 import { useTheme } from '../../context/ThemeContext';
 import { alpha } from '@mui/material/styles';
 
-const Navbar = ({ onResetApp }) => {
+const Navbar = ({ onResetApp, onViewCalendar }) => {
   const { mode, toggleColorMode } = useTheme();
 
   return (
@@ -53,20 +53,58 @@ const Navbar = ({ onResetApp }) => {
             </Typography>
           </Box>
 
-          {/* Dark/Light Mode Toggle */}
-          <IconButton 
-            onClick={toggleColorMode} 
-            aria-label="toggle dark mode"
-            sx={{ 
-              color: '#ffffff',
-              backgroundColor: alpha('#ffffff', 0.2),
-              '&:hover': {
-                backgroundColor: alpha('#ffffff', 0.3),
-              }
-            }}
-          >
-            {mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
-          </IconButton>
+          {/* Navigation Options */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            {/* View Calendar Button */}
+            <Button
+              startIcon={<CalendarMonth />}
+              onClick={onViewCalendar}
+              variant="outlined"
+              size="small"
+              sx={{
+                color: '#ffffff',
+                borderColor: alpha('#ffffff', 0.5),
+                '&:hover': {
+                  borderColor: '#ffffff',
+                  backgroundColor: alpha('#ffffff', 0.1),
+                },
+                display: { xs: 'none', sm: 'flex' }
+              }}
+            >
+              View Calendar
+            </Button>
+
+            {/* Mobile Calendar Icon */}
+            <IconButton
+              onClick={onViewCalendar}
+              aria-label="view doctor calendar"
+              sx={{ 
+                color: '#ffffff',
+                backgroundColor: alpha('#ffffff', 0.2),
+                '&:hover': {
+                  backgroundColor: alpha('#ffffff', 0.3),
+                },
+                display: { xs: 'flex', sm: 'none' }
+              }}
+            >
+              <CalendarMonth />
+            </IconButton>
+
+            {/* Dark/Light Mode Toggle */}
+            <IconButton 
+              onClick={toggleColorMode} 
+              aria-label="toggle dark mode"
+              sx={{ 
+                color: '#ffffff',
+                backgroundColor: alpha('#ffffff', 0.2),
+                '&:hover': {
+                  backgroundColor: alpha('#ffffff', 0.3),
+                }
+              }}
+            >
+              {mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
+            </IconButton>
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>

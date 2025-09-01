@@ -55,7 +55,7 @@ const ConfirmationScreen = ({ appointmentId, patientDetails, appointmentDetails,
       Phone: ${patientDetails.phone}
       Email: ${patientDetails.email}
       ${patientDetails.insurance ? `Insurance: ${patientDetails.insurance}` : ''}
-      
+
       APPOINTMENT DETAILS
       ------------------
       Doctor: ${doctor?.name || ''}
@@ -108,16 +108,18 @@ const ConfirmationScreen = ({ appointmentId, patientDetails, appointmentDetails,
           
           <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <Typography variant="subtitle2" color="text.secondary">Patient Information</Typography>
-                  <Typography variant="body1">{patientDetails.fullName}</Typography>
-                  <Typography variant="body2">
-                    {patientDetails.gender}, {patientDetails.age} years
-                  </Typography>
-                  <Typography variant="body2">{patientDetails.phone}</Typography>
-                  <Typography variant="body2">{patientDetails.email}</Typography>
-                  {patientDetails.insurance && (
-                    <Typography variant="body2">Insurance: {patientDetails.insurance}</Typography>
-                  )}
+                  <Box>
+                    <Typography variant="subtitle2" color="text.secondary">Patient Information</Typography>
+                    <Typography variant="body1">{patientDetails.fullName}</Typography>
+                    <Typography variant="body2">
+                      {patientDetails.gender}, {patientDetails.age} years
+                    </Typography>
+                    <Typography variant="body2">{patientDetails.phone}</Typography>
+                    <Typography variant="body2">{patientDetails.email}</Typography>
+                    {patientDetails.insurance && (
+                      <Typography variant="body2">Insurance: {patientDetails.insurance}</Typography>
+                    )}
+                  </Box>
                 </Grid>
                 
                 <Grid item xs={12}>
