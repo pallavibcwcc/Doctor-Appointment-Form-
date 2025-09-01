@@ -1,0 +1,147 @@
+/* === Form Container === */
+.modern-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2rem;
+  background: #ffffff; /* light theme default */
+  border-radius: 16px;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.6s ease;
+  max-width: 600px;
+  margin: 0 auto;
+  color: #222;
+}
+
+/* Dark theme override */
+[data-theme="dark"] .modern-form {
+  background: #1e1e1e; /* dark card */
+  color: #f1f1f1;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 600px) {
+  .modern-form {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+}
+
+/* === Inputs (Box) === */
+.MuiOutlinedInput-root {
+  border-radius: 12px !important;
+  background: transparent !important;
+  transition: all 0.3s ease;
+  border: 1px solid #ccc !important; /* light theme border */
+}
+
+[data-theme="dark"] .MuiOutlinedInput-root {
+  border: 1px solid #444 !important; /* dark theme border */
+  background: #2a2a2a !important;
+}
+
+/* Remove default MUI fieldset line */
+.MuiOutlinedInput-root fieldset {
+  display: none !important;
+}
+
+/* Hover */
+.MuiOutlinedInput-root:hover {
+  background: transparent !important;
+}
+[data-theme="dark"] .MuiOutlinedInput-root:hover {
+  background: #333 !important;
+  border-color: #666 !important;
+}
+
+/* Focus */
+.MuiOutlinedInput-root.Mui-focused {
+  border: 2px solid #1976d2 !important;
+  box-shadow: 0 0 8px rgba(25, 118, 210, 0.3);
+}
+[data-theme="dark"] .MuiOutlinedInput-root.Mui-focused {
+  border: 2px solid #42a5f5 !important;
+  box-shadow: 0 0 10px rgba(66, 165, 245, 0.4);
+}
+
+/* === Inputs (Text inside) === */
+.MuiOutlinedInput-input,
+.MuiInputBase-inputMultiline {
+  background: transparent !important;
+  color: #222 !important;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+[data-theme="dark"] .MuiOutlinedInput-input,
+[data-theme="dark"] .MuiInputBase-inputMultiline {
+  color: #f1f1f1 !important;
+}
+
+/* Fix Chrome autofill */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  -webkit-text-fill-color: #222 !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+[data-theme="dark"] input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #1e1e1e inset !important;
+  -webkit-text-fill-color: #f1f1f1 !important;
+}
+
+/* === Labels === */
+.MuiInputLabel-root {
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: #555 !important;
+  transition: all 0.2s ease;
+  position: static !important;  /* keep label above input */
+  transform: none !important;
+  margin-bottom: 6px !important; /* spacing */
+}
+.MuiInputLabel-root.Mui-focused {
+  color: #1976d2 !important;
+}
+[data-theme="dark"] .MuiInputLabel-root {
+  color: #bbb !important;
+}
+[data-theme="dark"] .MuiInputLabel-root.Mui-focused {
+  color: #42a5f5 !important;
+}
+
+/* === Errors === */
+.MuiFormHelperText-root {
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+.Mui-error {
+  color: #f44336 !important;
+}
+
+/* === Button === */
+.modern-button {
+  border-radius: 12px !important;
+  padding: 12px 36px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  background: linear-gradient(90deg, #1976d2, #42a5f5) !important;
+  color: #fff !important;
+  box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.12) !important;
+  transition: all 0.3s ease !important;
+}
+.modern-button:hover {
+  background: linear-gradient(90deg, #1565c0, #1e88e5) !important;
+  transform: translateY(-2px);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.18) !important;
+}
+@media (max-width: 600px) {
+  .modern-button {
+    width: 100% !important;
+    padding: 14px 0 !important;
+  }
+}
+
+/* === Animations === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

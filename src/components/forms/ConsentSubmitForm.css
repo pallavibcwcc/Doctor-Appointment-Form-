@@ -1,0 +1,134 @@
+/* === Consent Form Container === */
+.consent-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0px 8px 28px rgba(0, 0, 0, 0.12);
+  animation: fadeIn 0.6s ease;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #222;
+}
+
+/* Dark mode override */
+[data-theme="dark"] .consent-form {
+  background: #1e1e1e;
+  color: #f1f1f1;
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+/* === Section titles === */
+.consent-form h6 {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  margin-bottom: 0.5rem;
+  color: #1976d2;
+}
+[data-theme="dark"] .consent-form h6 {
+  color: #42a5f5;
+}
+
+/* === Summary Card === */
+.summary-card {
+  padding: 1.5rem;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #eee;
+}
+[data-theme="dark"] .summary-card {
+  background: #2a2a2a;
+  border: 1px solid #444;
+}
+
+/* === Typography overrides === */
+.consent-form .MuiTypography-subtitle2 {
+  font-weight: 600;
+  color: #555;
+}
+[data-theme="dark"] .consent-form .MuiTypography-subtitle2 {
+  color: #bbb;
+}
+
+.consent-form .MuiTypography-body2 {
+  line-height: 1.5;
+  margin-top: 2px;
+  color: #444;
+}
+[data-theme="dark"] .consent-form .MuiTypography-body2 {
+  color: #ddd;
+}
+
+/* === Chips (symptoms) === */
+.consent-form .MuiChip-root {
+  border-radius: 8px;
+  font-size: 0.8rem;
+  background: #e3f2fd;
+  color: #1976d2;
+  font-weight: 500;
+}
+[data-theme="dark"] .consent-form .MuiChip-root {
+  background: #1565c0;
+  color: #fff;
+}
+
+/* === Checkboxes === */
+.consent-form .MuiFormControlLabel-root {
+  margin: 0.4rem 0;
+}
+.consent-form .MuiCheckbox-root {
+  color: #1976d2 !important;
+}
+[data-theme="dark"] .consent-form .MuiCheckbox-root {
+  color: #42a5f5 !important;
+}
+
+/* === Buttons === */
+.consent-form .MuiButton-root {
+  border-radius: 12px !important;
+  padding: 12px 24px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Primary submit */
+.consent-form .MuiButton-containedPrimary {
+  background: linear-gradient(90deg, #1976d2, #42a5f5) !important;
+  color: #fff !important;
+  box-shadow: 0px 6px 14px rgba(25, 118, 210, 0.25) !important;
+}
+.consent-form .MuiButton-containedPrimary:hover {
+  background: linear-gradient(90deg, #1565c0, #1e88e5) !important;
+  transform: translateY(-2px);
+}
+
+/* Outlined buttons */
+.consent-form .MuiButton-outlined {
+  border-width: 2px !important;
+  border-radius: 10px !important;
+}
+
+/* === Alerts (Errors) === */
+.consent-form .MuiAlert-root {
+  border-radius: 10px;
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  margin-top: 4px;
+}
+.consent-form .MuiAlert-standardError {
+  background: #fdecea;
+  color: #b71c1c;
+}
+[data-theme="dark"] .consent-form .MuiAlert-standardError {
+  background: #3d1d1d;
+  color: #f88a8a;
+}
+
+/* === Animations === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

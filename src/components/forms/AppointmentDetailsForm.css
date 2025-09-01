@@ -1,0 +1,66 @@
+/* 📌 Common form layout */
+.modern-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* 📌 Inputs */
+.modern-input .MuiOutlinedInput-root {
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+}
+
+.modern-input .MuiOutlinedInput-root.Mui-focused {
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
+  border-color: #1976d2;
+}
+
+.modern-input label {
+  transition: all 0.2s ease;
+}
+
+.modern-input .Mui-focused label {
+  color: #1976d2 !important;
+}
+
+/* 📌 Buttons */
+.modern-button {
+  border-radius: 12px !important;
+  padding: 12px 36px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  background: linear-gradient(90deg, #1976d2, #42a5f5) !important;
+  box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.3s ease !important;
+}
+
+.modern-button:hover {
+  background: linear-gradient(90deg, #1565c0, #1e88e5) !important;
+  transform: translateY(-2px);
+}
+
+.modern-button-outline {
+  border-radius: 12px !important;
+  padding: 12px 36px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  border: 2px solid #1976d2 !important;
+  color: #1976d2 !important;
+  transition: all 0.3s ease !important;
+}
+
+.modern-button-outline:hover {
+  background: rgba(25, 118, 210, 0.1) !important;
+}
+
+/* 📌 Mobile responsiveness */
+@media (max-width: 600px) {
+  .modern-form {
+    gap: 1rem;
+  }
+  .modern-button, .modern-button-outline {
+    width: 100%;
+  }
+}
