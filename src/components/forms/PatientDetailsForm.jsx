@@ -5,9 +5,9 @@ import FormCard from '../ui/FormCard';
 import { Person, LocalHospital } from '@mui/icons-material';
 import './PatientDetailsForm.css'; // external CSS
 // Using a remote doctor image instead of local file
-
-const doctorImage = 'https://t3.ftcdn.net/jpg/03/19/52/64/240_F_319526449_XOvMGnNoLlPKUgVqPNscEhDsZvlmBSbY.jpg';
-
+import doctorImage from '../../assets/doctor.png'
+// const doctorImage = 'https://t3.ftcdn.net/jpg/03/19/52/64/240_F_319526449_XOvMGnNoLlPKUgVqPNscEhDsZvlmBSbY.jpg';
+<img src={doctorImage} alt="Doctor" className="doctor-image" />
 // Validation schema
 const validationSchema = Yup.object({
   fullName: Yup.string().required('Full name is required'),
