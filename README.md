@@ -31,7 +31,7 @@ This project uses the following additional technologies and libraries:
    ```bash
    git clone <repository-url>
    git clone https://github.com/pallavibcwcc/Doctor-Appointment-Form-.git
-   cd Frontend Assignment
+   cd File name
    ```
 
 2. Install dependencies:
