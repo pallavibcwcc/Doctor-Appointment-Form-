@@ -118,7 +118,7 @@ const ConsentSubmitForm = ({ onSubmit, onBack, patientDetails, appointmentDetail
                     color="primary"
                   />
                 }
-                label="I agree to receive SMS/Email notifications about my appointment"
+                label="I agree to receive SMS/Email notifications about my appointment *"
               />
               {formik.touched.consentNotifications && formik.errors.consentNotifications && (
                 <Alert severity="error" className="mt-1">{formik.errors.consentNotifications}</Alert>
@@ -133,7 +133,7 @@ const ConsentSubmitForm = ({ onSubmit, onBack, patientDetails, appointmentDetail
                     color="primary"
                   />
                 }
-                label="I agree to the terms and conditions of the medical service"
+                label="I agree to the terms and conditions of the medical service *"
               />
               {formik.touched.consentTerms && formik.errors.consentTerms && (
                 <Alert severity="error" className="mt-1">{formik.errors.consentTerms}</Alert>

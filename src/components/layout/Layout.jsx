@@ -22,8 +22,8 @@ const Layout = ({ children, onResetApp, onViewCalendar }) => {
         maxWidth="lg" 
         sx={{
           flexGrow: 1,
-          py: 4,
-          px: { xs: 2, sm: 3, md: 4 },
+          py: { xs: 4, sm: 6 },
+          px: { xs: 2.5, sm: 4, md: 6 },
           transition: 'padding 0.3s ease'
         }}
       >

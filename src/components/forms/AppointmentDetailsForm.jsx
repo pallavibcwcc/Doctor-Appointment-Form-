@@ -89,7 +89,7 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
           {/* Specialty */}
           <Grid item xs={12}>
             <FormControl fullWidth error={formik.touched.specialtyId && Boolean(formik.errors.specialtyId)}>
-              <InputLabel id="specialty-label">Specialty</InputLabel>
+              <InputLabel id="specialty-label">Specialty *</InputLabel>
               <Select
                 labelId="specialty-label"
                 id="specialtyId"
@@ -117,7 +117,7 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
               error={formik.touched.doctorId && Boolean(formik.errors.doctorId)}
               disabled={!formik.values.specialtyId}
             >
-              <InputLabel id="doctor-label">Doctor</InputLabel>
+              <InputLabel id="doctor-label">Doctor *</InputLabel>
               <Select
                 labelId="doctor-label"
                 id="doctorId"
@@ -141,7 +141,7 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
           {/* Visit Type */}
           <Grid item xs={12}>
             <FormControl component="fieldset">
-              <Typography variant="subtitle2" className="mb-2">Visit Type</Typography>
+              <Typography variant="subtitle2" className="mb-2">Visit Type *</Typography>
               <RadioGroup
                 row
                 name="visitType"
@@ -161,7 +161,7 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
           <Grid item xs={12}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                label="Preferred Date"
+                label="Preferred Date *"
                 value={formik.values.appointmentDate}
                 onChange={(date) => formik.setFieldValue('appointmentDate', date)}
                 disablePast
@@ -184,7 +184,7 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
               error={formik.touched.timeSlot && Boolean(formik.errors.timeSlot)}
               disabled={!formik.values.doctorId || !formik.values.appointmentDate}
             >
-              <InputLabel id="time-slot-label">Available Time Slot</InputLabel>
+              <InputLabel id="time-slot-label">Available Time Slot *</InputLabel>
               <Select
                 labelId="time-slot-label"
                 id="timeSlot"
@@ -211,7 +211,7 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
               fullWidth
               id="reasonForVisit"
               name="reasonForVisit"
-              label="Reason for Visit"
+              label="Reason for Visit *"
               multiline
               rows={3}
               value={formik.values.reasonForVisit}
@@ -238,7 +238,7 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Symptoms"
+                  label="Symptoms *"
                   placeholder="Add symptoms"
                   error={formik.touched.symptoms && Boolean(formik.errors.symptoms)}
                   helperText={formik.touched.symptoms && formik.errors.symptoms}

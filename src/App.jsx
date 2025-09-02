@@ -46,6 +46,7 @@ function App() {
     setAppointmentDetails(null);
     setAppointmentId(null);
     setActiveStep(0);
+    setShowCalendarView(false); // Ensure we return to the form view
   };
 
   // Toggle calendar view
@@ -95,31 +96,11 @@ function App() {
                 />
               )}
               
-              {/* Modern Button with Icon */}
-              <Box className="text-center mt-12">
-                <button
-                  onClick={toggleCalendarView}
-                  className="back-to-appointment-btn flex items-center justify-center gap-2 mx-auto"
-                >
-                  <CalendarMonth fontSize="small" />
-                  View Doctor Calendar
-                </button>
-              </Box>
+              
             </Box>
           ) : (
             <Box className="max-w-4xl mx-auto">
-              <DoctorCalendarView />
-              
-              {/* Modern Button with Icon */}
-              <Box className="text-center mt-12">
-                <button
-                  onClick={toggleCalendarView}
-                  className="back-to-appointment-btn flex items-center justify-center gap-2 mx-auto"
-                >
-                  <ArrowBack fontSize="small" />
-                  Back to Appointment Form
-                </button>
-              </Box>
+              <DoctorCalendarView onClose={toggleCalendarView} />
             </Box>
           )}
         </Container>

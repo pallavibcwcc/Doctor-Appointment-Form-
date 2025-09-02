@@ -68,9 +68,21 @@ export const generateAppointmentId = () => {
 export const generateCalendarData = (month, year) => {
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const calendarData = [];
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  const currentMonth = today.getMonth();
+  const currentDay = today.getDate();
   
   for (let day = 1; day <= daysInMonth; day++) {
-    const appointmentCount = Math.floor(Math.random() * 5);
+    // Check if the date is in the future
+    const isFutureDate = (
+      year > currentYear || 
+      (year === currentYear && month > currentMonth) ||
+      (year === currentYear && month === currentMonth && day > currentDay)
+    );
+    
+    // Only generate appointments for dates up to today
+    const appointmentCount = isFutureDate ? 0 : Math.floor(Math.random() * 5);
     const appointments = [];
     
     for (let i = 0; i < appointmentCount; i++) {

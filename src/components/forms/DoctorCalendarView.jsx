@@ -3,16 +3,18 @@ import './DoctorCalendarView.css'
 import { 
   Box, Typography, Paper, Button, Divider,
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
-  Dialog, DialogTitle, DialogContent, DialogActions, List, ListItem
+  Dialog, DialogTitle, DialogContent, DialogActions, List, ListItem,
+  IconButton
 } from '@mui/material';
 import { 
   CalendarMonth, ChevronLeft, ChevronRight, 
-  AccessTime, Person, Videocam, MeetingRoom
+  AccessTime, Person, Videocam, MeetingRoom,
+  Close
 } from '@mui/icons-material';
 import FormCard from '../ui/FormCard';
 import { generateCalendarData } from '../../data/mockData';
 
-const DoctorCalendarView = () => {
+const DoctorCalendarView = ({ onClose }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [calendarData, setCalendarData] = useState([]);
   const [selectedDay, setSelectedDay] = useState(null);
@@ -56,6 +58,10 @@ const DoctorCalendarView = () => {
   const generateCalendarGrid = () => {
     const grid = [];
     let dayCount = 1;
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth();
+    const currentDay = today.getDate();
     
     for (let week = 0; dayCount <= daysInMonth; week++) {
       const days = [];
@@ -69,6 +75,21 @@ const DoctorCalendarView = () => {
             appointmentCount: 0,
             appointments: []
           };
+          
+          // Check if this day is today
+          const isToday = year === currentYear && month === currentMonth && dayCount === currentDay;
+          
+          // Check if this day is in the future
+          const isFutureDate = (
+            year > currentYear || 
+            (year === currentYear && month > currentMonth) ||
+            (year === currentYear && month === currentMonth && dayCount > currentDay)
+          );
+          
+          // Add these properties to the dayData object
+          dayData.isToday = isToday;
+          dayData.isFutureDate = isFutureDate;
+          
           days.push(dayData);
           dayCount++;
         }
@@ -88,80 +109,105 @@ const DoctorCalendarView = () => {
       subtitle="View all scheduled appointments"
       icon={<CalendarMonth fontSize="large" />}
     >
+      <IconButton onClick={onClose} aria-label="close calendar">
+        <Close />
+      </IconButton>
       <Box className="mb-6">
-        <Box className="flex justify-between items-center mb-4">
-          <Button 
-            startIcon={<ChevronLeft />} 
-            onClick={prevMonth}
-            variant="outlined"
-          >
-            Prev
-          </Button>
+        <Box className="flex justify-between items-center mb-4 mt-2">
+          <Box sx={{ visibility: 'hidden' }}>
+            <Button 
+              startIcon={<ChevronLeft />} 
+              onClick={prevMonth}
+              variant="outlined"
+              size="small"
+              className="calendar-nav-btn"
+            >
+              Prev
+            </Button>
+          </Box>
           
           <Typography variant="h5" className="font-medium">
             {monthNames[month]} {year}
           </Typography>
           
-          <Button 
-            endIcon={<ChevronRight />} 
-            onClick={nextMonth}
-            variant="outlined"
-          >
-            Next
-          </Button>
+          <Box>
+            <Button 
+              startIcon={<ChevronLeft />} 
+              onClick={prevMonth}
+              variant="outlined"
+              size="small"
+              className="calendar-nav-btn"
+              sx={{ mr: 1 }}
+            >
+              Prev
+            </Button>
+            <Button 
+              endIcon={<ChevronRight />} 
+              onClick={nextMonth}
+              variant="outlined"
+              size="small"
+              className="calendar-nav-btn"
+            >
+              Next
+            </Button>
+          </Box>
         </Box>
-        
-        {/* Calendar Table */}
-        <TableContainer component={Paper} elevation={0} className="border calendar-wrap">
-          <Table>
-            <TableHead>
-              <TableRow>
-                {weekdays.map(day => (
-                  <TableCell key={day} align="center" className="font-medium">
-                    {day}
+      </Box>
+      
+      {/* Calendar Table */}
+      <TableContainer component={Paper} elevation={0} className="border calendar-wrap">
+        <Table>
+          <TableHead>
+            <TableRow>
+              {weekdays.map(day => (
+                <TableCell key={day} align="center" className="font-medium">
+                  {day}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {calendarGrid.map((week, weekIndex) => (
+              <TableRow key={weekIndex}>
+                {week.map((day, dayIndex) => (
+                  <TableCell 
+                    key={dayIndex} 
+                    align="center" 
+                    className={`h-24 w-1/7 ${!day ? 'day-empty' : ''} ${day?.isFutureDate ? 'future-date' : ''} ${day?.isToday ? 'is-today' : ''}`}
+                  >
+                    {day && (
+                      <Box className="h-full flex flex-col">
+                        <Typography variant="subtitle1" className="day-number">
+                          {day.day}
+                        </Typography>
+                        
+                        {day.isFutureDate ? (
+                          <Typography variant="body2" color="text.secondary" className="mt-2 future-text">
+                            Future date
+                          </Typography>
+                        ) : day.appointmentCount > 0 ? (
+                          <Box 
+                            className="appt-chip"
+                            onClick={() => showAppointments(day)}
+                          >
+                            <Typography variant="body2" className="appt-text">
+                              {day.appointmentCount} appointment{day.appointmentCount !== 1 ? 's' : ''}
+                            </Typography>
+                          </Box>
+                        ) : (
+                          <Typography variant="body2" color="text.secondary" className="mt-2">
+                            No appointments
+                          </Typography>
+                        )}
+                      </Box>
+                    )}
                   </TableCell>
                 ))}
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {calendarGrid.map((week, weekIndex) => (
-                <TableRow key={weekIndex}>
-                  {week.map((day, dayIndex) => (
-                    <TableCell 
-                      key={dayIndex} 
-                      align="center" 
-                      className={`h-24 w-1/7 ${!day ? 'day-empty' : ''}`}
-                    >
-                      {day && (
-                        <Box className="h-full flex flex-col">
-                          <Typography variant="subtitle1" className="day-number">
-                            {day.day}
-                          </Typography>
-                          
-                          {day.appointmentCount > 0 ? (
-                            <Box 
-                              className="appt-chip"
-                              onClick={() => showAppointments(day)}
-                            >
-                              <Typography variant="body2" className="appt-text">
-                                {day.appointmentCount} appointment{day.appointmentCount !== 1 ? 's' : ''}
-                              </Typography>
-                            </Box>
-                          ) : (
-                            <Typography variant="body2" color="text.secondary" className="mt-2">
-                              No appointments
-                            </Typography>
-                          )}
-                        </Box>
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
       
       {/* Appointments Dialog */}
       <Dialog 

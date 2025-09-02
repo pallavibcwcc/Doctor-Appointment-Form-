@@ -13,7 +13,7 @@ const FormStepper = ({ activeStep }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Box className="mb-8 px-4">
+    <Box className="mb-10 md:mb-12 px-4">
       <Stepper 
         activeStep={activeStep} 
         alternativeLabel={!isMobile}
@@ -22,7 +22,7 @@ const FormStepper = ({ activeStep }) => {
         {steps.map((step, index) => (
           <Step key={step.label}>
             <StepLabel StepIconComponent={() => (
-              <Box className={`flex items-center justify-center w-8 h-8 rounded-full ${activeStep >= index ? 'bg-primary-500 text-white' : 'bg-gray-200 text-gray-500'}`}>
+              <Box className={`flex items-center justify-center w-8 h-8 rounded-full ${activeStep > index ? 'bg-primary-100 text-primary-600' : activeStep === index ? 'bg-primary-50 text-primary-600 ring-2 ring-primary-300' : 'bg-gray-200 text-gray-500'}`}>
                 {step.icon}
               </Box>
             )}>

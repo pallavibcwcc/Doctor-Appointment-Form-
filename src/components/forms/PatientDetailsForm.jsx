@@ -41,6 +41,7 @@ const PatientDetailsForm = ({ onSubmit }) => {
 
   return (
     <>
+      <Box mt={{ xs: 1.5, sm: 2 }}>
       <FormCard
         title="Patient Details"
         subtitle="Please provide your personal information"
@@ -64,7 +65,7 @@ const PatientDetailsForm = ({ onSubmit }) => {
               fullWidth
               id="fullName"
               name="fullName"
-              label="Full Name"
+              label="Full Name *"
               variant="outlined"
               value={formik.values.fullName}
               onChange={formik.handleChange}
@@ -80,7 +81,7 @@ const PatientDetailsForm = ({ onSubmit }) => {
               variant="outlined"
               error={formik.touched.gender && Boolean(formik.errors.gender)}
             >
-              <InputLabel id="gender-label">Gender</InputLabel>
+              <InputLabel id="gender-label">Gender *</InputLabel>
               <Select
                 labelId="gender-label"
                 id="gender"
@@ -106,7 +107,7 @@ const PatientDetailsForm = ({ onSubmit }) => {
               fullWidth
               id="age"
               name="age"
-              label="Age"
+              label="Age *"
               type="number"
               variant="outlined"
               value={formik.values.age}
@@ -123,7 +124,7 @@ const PatientDetailsForm = ({ onSubmit }) => {
               fullWidth
               id="phone"
               name="phone"
-              label="Phone Number"
+              label="Phone Number *"
               variant="outlined"
               value={formik.values.phone}
               onChange={formik.handleChange}
@@ -134,7 +135,7 @@ const PatientDetailsForm = ({ onSubmit }) => {
           </Grid>
 
           <Grid item xs={12}>
-             <label>Email</label>
+             <label>Email *</label>
             <TextField
               fullWidth
               id="email"
@@ -176,6 +177,7 @@ const PatientDetailsForm = ({ onSubmit }) => {
         </Grid>
       </form>
     </FormCard>
+    </Box>
     </>
   );
 };

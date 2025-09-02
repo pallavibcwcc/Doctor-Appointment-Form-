@@ -8,6 +8,47 @@
   border-color: rgba(255,255,255,0.12);
 }
 
+/* Close button */
+.MuiIconButton-root[aria-label="close calendar"] {
+  transition: all 0.2s ease;
+  color: #e53e3e; /* Red color */
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+}
+
+.MuiIconButton-root[aria-label="close calendar"]:hover {
+  background-color: rgba(229, 62, 62, 0.1); /* Light red background on hover */
+  color: #dc2626; /* Darker red on hover */
+}
+
+[data-theme="dark"] .MuiIconButton-root[aria-label="close calendar"] {
+  color: #f87171; /* Lighter red for dark theme */
+}
+
+[data-theme="dark"] .MuiIconButton-root[aria-label="close calendar"]:hover {
+  background-color: rgba(248, 113, 113, 0.2); /* Light red background on hover for dark theme */
+  color: #fca5a5; /* Even lighter red on hover for dark theme */
+}
+
+/* Calendar navigation buttons */
+.calendar-nav-btn {
+  min-width: 70px !important;
+  padding: 4px 10px !important;
+  font-size: 0.85rem !important;
+}
+
+[data-theme="dark"] .calendar-nav-btn {
+  border-color: rgba(255,255,255,0.2) !important;
+  color: rgba(255,255,255,0.7) !important;
+}
+
+[data-theme="dark"] .calendar-nav-btn:hover {
+  border-color: rgba(255,255,255,0.4) !important;
+  background-color: rgba(255,255,255,0.05) !important;
+}
+
 .calendar-wrap .MuiTableHead-root .MuiTableCell-root {
   font-weight: 600;
   letter-spacing: 0.2px;
@@ -29,6 +70,31 @@
 }
 [data-theme="dark"] .calendar-wrap .day-empty {
   background: rgba(255,255,255,0.04);
+}
+
+/* Future date cells */
+.calendar-wrap .future-date {
+  background: rgba(0,0,0,0.01);
+  opacity: 0.7;
+}
+[data-theme="dark"] .calendar-wrap .future-date {
+  background: rgba(255,255,255,0.02);
+  opacity: 0.7;
+}
+
+.calendar-wrap .future-date .day-number {
+  color: rgba(0,0,0,0.5);
+}
+[data-theme="dark"] .calendar-wrap .future-date .day-number {
+  color: rgba(255,255,255,0.5);
+}
+
+.calendar-wrap .future-text {
+  font-style: italic;
+  color: rgba(0,0,0,0.4);
+}
+[data-theme="dark"] .calendar-wrap .future-text {
+  color: rgba(255,255,255,0.4);
 }
 
 /* Day number */
