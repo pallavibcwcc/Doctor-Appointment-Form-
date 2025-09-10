@@ -1,51 +1,61 @@
-/* 📌 Common form layout */
+/* 📌 Smaller Form Card */
 .modern-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;                 /* tighter spacing */
+  padding: 1rem;             /* smaller padding inside */
+  max-width: 480px;          /* ✅ smaller width */
+  margin: 0 auto;            /* center card */
+  border-radius: 10px;       /* compact corners */
+  background: #fff;
+  box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
 }
 
-/* 📌 Inputs */
+/* 📌 Compact Input Fields */
 .modern-input .MuiOutlinedInput-root {
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.7);
-  transition: all 0.3s ease;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;          /* smaller text */
+  min-height: 36px;            /* smaller height */
 }
 
-.modern-input .MuiOutlinedInput-root.Mui-focused {
-  box-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
-  border-color: #1976d2;
+.modern-input .MuiOutlinedInput-input {
+  padding: 6px 8px !important; /* smaller padding inside input */
+  font-size: 0.85rem;          /* smaller text size */
 }
 
 .modern-input label {
-  transition: all 0.2s ease;
+  font-size: 0.8rem;           /* smaller label text */
 }
 
-.modern-input .Mui-focused label {
-  color: #1976d2 !important;
+/* Multiline fields (Reason for Visit) */
+.modern-input .MuiOutlinedInput-inputMultiline {
+  padding: 6px 8px !important;
+  font-size: 0.85rem;
+  line-height: 1.3;
 }
 
 /* 📌 Buttons */
 .modern-button {
-  border-radius: 12px !important;
-  padding: 12px 36px !important;
+  border-radius: 8px !important;
+  padding: 8px 20px !important;    /* ✅ smaller button size */
+  font-size: 0.85rem !important;
   font-weight: 600 !important;
   text-transform: none !important;
   background: linear-gradient(90deg, #1976d2, #42a5f5) !important;
-  box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
   transition: all 0.3s ease !important;
 }
 
 .modern-button:hover {
   background: linear-gradient(90deg, #1565c0, #1e88e5) !important;
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .modern-button-outline {
-  border-radius: 12px !important;
-  padding: 12px 36px !important;
-  font-weight: 600 !important;
-  text-transform: none !important;
+  border-radius: 8px !important;
+  padding: 8px 20px !important;    /* ✅ smaller outline button */
+  font-size: 0.85rem !important;
   border: 2px solid #1976d2 !important;
   color: #1976d2 !important;
   transition: all 0.3s ease !important;
@@ -58,7 +68,9 @@
 /* 📌 Mobile responsiveness */
 @media (max-width: 600px) {
   .modern-form {
-    gap: 1rem;
+    max-width: 95%;      /* use full width on mobile */
+    gap: 0.75rem;        /* even tighter spacing */
+    padding: 0.75rem;
   }
   .modern-button, .modern-button-outline {
     width: 100%;

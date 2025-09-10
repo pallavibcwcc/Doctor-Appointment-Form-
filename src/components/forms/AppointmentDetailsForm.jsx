@@ -78,13 +78,14 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
   }, [formik.values.doctorId, formik.values.appointmentDate]);
 
   return (
-    <FormCard 
-      title="Appointment Details" 
-      subtitle="Select your preferred doctor and appointment time"
-      icon={<EventNote fontSize="large" />}
-    >
-      <form onSubmit={formik.handleSubmit} className="modern-form">
-        <Grid container direction="column" spacing={3}>
+    <Box className="mt-6 md:mt-8">
+      <FormCard 
+        title="Appointment Details" 
+        subtitle="Select your preferred doctor and appointment time"
+        icon={<EventNote fontSize="large" />}
+      >
+        <form onSubmit={formik.handleSubmit} className="modern-form">
+          <Grid container direction="column" spacing={3}>
           
           {/* Specialty */}
           <Grid item xs={12}>
@@ -226,6 +227,7 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
           <Grid item xs={12}>
             <Autocomplete
               multiple
+              freeSolo
               id="symptoms"
               options={commonSymptoms}
               value={formik.values.symptoms}
@@ -266,6 +268,7 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
         </Grid>
       </form>
     </FormCard>
+    </Box>
   );
 };
 

@@ -54,6 +54,23 @@ function App() {
     setShowCalendarView(!showCalendarView);
   };
 
+  // Allow clicking on step icons to navigate to that form.
+  // Restrict navigation to steps that have already been completed to avoid skipping required data.
+  const getMaxStep = () => {
+    if (appointmentId) return 3;
+    if (appointmentDetails) return 2;
+    if (patientDetails) return 1;
+    return 0;
+  };
+
+  const handleStepChange = (nextStep) => {
+    // Safety: only allow navigating up to max completed step
+    const max = getMaxStep();
+    if (nextStep <= max) {
+      setActiveStep(nextStep);
+    }
+  };
+
   return (
     <ThemeProvider>
       <CssBaseline />
@@ -61,7 +78,7 @@ function App() {
         <Container maxWidth="lg">
           {!showCalendarView ? (
             <Box className="max-w-4xl mx-auto">
-              <FormStepper activeStep={activeStep} />
+              <FormStepper activeStep={activeStep} onStepChange={handleStepChange} maxStep={getMaxStep()} />
               
               {activeStep === 0 && (
                 <PatientDetailsForm 
