@@ -1,9 +1,12 @@
-Live Demo link :- https://steady-piroshki-2bd2cd.netlify.app/
-<img width="1293" height="602" alt="1" src="https://github.com/user-attachments/assets/5da8e2ae-2f99-45c3-b6e9-5f87c311aba2" />
-<img width="604" height="586" alt="2" src="https://github.com/user-attachments/assets/c2853d4f-00d7-408c-afb6-046b55f798bd" />
-<img width="932" height="514" alt="3" src="https://github.com/user-attachments/assets/c20f14c0-0edb-4f9e-a02d-c82a1cb6a48f" />
-<img width="1025" height="528" alt="new" src="https://github.com/user-attachments/assets/27a530c1-798f-4059-900f-ebe81bfb8206" />
-<img width="1095" height="539" alt="last" src="https://github.com/user-attachments/assets/9ffd5818-f3ee-47b3-a97d-509fb89eb45e" />
+Live Demo link :- https://sparkly-unicorn-8035e0.netlify.app/
+
+<img width="1792" height="981" alt="Screenshot 2025-09-10 at 5 13 35 PM" src="https://github.com/user-attachments/assets/ebc6e624-16e4-43af-a7d9-bf903a9923f2" />
+<img width="1792" height="981" alt="Screenshot 2025-09-10 at 5 14 43 PM" src="https://github.com/user-attachments/assets/d25acfc1-08b1-468a-a2ac-3d36bcd87a37" />
+<img width="1792" height="981" alt="Screenshot 2025-09-10 at 5 15 23 PM" src="https://github.com/user-attachments/assets/d00b0df8-9466-4d15-bd8e-5456d6ac7695" />
+<img width="1792" height="981" alt="Screenshot 2025-09-10 at 5 15 49 PM" src="https://github.com/user-attachments/assets/36fbac66-6f21-45ac-8081-4220f5bc4751" />
+<img width="1792" height="1047" alt="Screenshot 2025-09-10 at 5 16 25 PM" src="https://github.com/user-attachments/assets/63dee2e4-1c6d-49b0-b814-4fd62499f09c" />
+
+<img width="1792" height="981" alt="Screenshot 2025-09-10 at 5 16 10 PM" src="https://github.com/user-attachments/assets/015a11ba-92c4-4c3c-9c64-0b489fec6e4a" />
 
 
 
