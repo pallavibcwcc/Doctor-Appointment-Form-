@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { 
   TextField, Button, Grid, MenuItem, FormControl, FormHelperText, 
-  Box, InputLabel, Select, Chip, Autocomplete, RadioGroup,
+  Box, Select, Chip, Autocomplete, RadioGroup,
   FormControlLabel, Radio, Typography
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -90,15 +90,17 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
           {/* Specialty */}
           <Grid item xs={12}>
             <FormControl fullWidth error={formik.touched.specialtyId && Boolean(formik.errors.specialtyId)}>
-              <InputLabel id="specialty-label">Specialty *</InputLabel>
               <Select
-                labelId="specialty-label"
                 id="specialtyId"
                 name="specialtyId"
                 value={formik.values.specialtyId}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                displayEmpty
               >
+                <MenuItem value="" disabled>
+                  Specialty *
+                </MenuItem>
                 {specialties.map((specialty) => (
                   <MenuItem key={specialty.id} value={specialty.id}>
                     {specialty.name}
@@ -118,15 +120,17 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
               error={formik.touched.doctorId && Boolean(formik.errors.doctorId)}
               disabled={!formik.values.specialtyId}
             >
-              <InputLabel id="doctor-label">Doctor *</InputLabel>
               <Select
-                labelId="doctor-label"
                 id="doctorId"
                 name="doctorId"
                 value={formik.values.doctorId}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                displayEmpty
               >
+                <MenuItem value="" disabled>
+                  Doctor *
+                </MenuItem>
                 {availableDoctors.map((doctor) => (
                   <MenuItem key={doctor.id} value={doctor.id}>
                     {doctor.name}
@@ -162,7 +166,6 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
           <Grid item xs={12}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                label="Preferred Date *"
                 value={formik.values.appointmentDate}
                 onChange={(date) => formik.setFieldValue('appointmentDate', date)}
                 disablePast
@@ -170,6 +173,7 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
                   <TextField 
                     {...params} 
                     fullWidth 
+                    placeholder="Preferred Date *"
                     error={formik.touched.appointmentDate && Boolean(formik.errors.appointmentDate)}
                     helperText={formik.touched.appointmentDate && formik.errors.appointmentDate}
                   />
@@ -185,15 +189,17 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
               error={formik.touched.timeSlot && Boolean(formik.errors.timeSlot)}
               disabled={!formik.values.doctorId || !formik.values.appointmentDate}
             >
-              <InputLabel id="time-slot-label">Available Time Slot *</InputLabel>
               <Select
-                labelId="time-slot-label"
                 id="timeSlot"
                 name="timeSlot"
                 value={formik.values.timeSlot}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                displayEmpty
               >
+                <MenuItem value="" disabled>
+                  Available Time Slot *
+                </MenuItem>
                 {availableTimeSlots.map((slot) => (
                   <MenuItem key={slot} value={slot}>
                     {slot}
@@ -212,7 +218,7 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
               fullWidth
               id="reasonForVisit"
               name="reasonForVisit"
-              label="Reason for Visit *"
+              placeholder="Reason for Visit *"
               multiline
               rows={3}
               value={formik.values.reasonForVisit}
@@ -240,8 +246,7 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Symptoms *"
-                  placeholder="Add symptoms"
+                  placeholder="Symptoms *"
                   error={formik.touched.symptoms && Boolean(formik.errors.symptoms)}
                   helperText={formik.touched.symptoms && formik.errors.symptoms}
                 />

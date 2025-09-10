@@ -106,34 +106,36 @@ const ConfirmationScreen = ({ appointmentId, patientDetails, appointmentDetails,
           
           <Divider className="my-4" />
           
-          <Grid container spacing={2}>
-                <Grid item xs={12}>
+          <Grid  container spacing={20}>
+                <Grid item xs={12} >
                   <Box>
-                    <Typography variant="subtitle2" color="text.secondary">Patient Information</Typography>
-                    <Typography variant="body1">{patientDetails.fullName}</Typography>
-                    <Typography variant="body2">
+                
+                    <Typography variant="subtitle2" color="text.secondary"sx={{ mb: 1 }} >Patient Information</Typography>
+                    <Typography variant="body1" sx={{ mb: 1 }} >{patientDetails.fullName}</Typography>
+                    <Typography variant="body2" sx={{ mb: 1 }} >
                       {patientDetails.gender}, {patientDetails.age} years
                     </Typography>
-                    <Typography variant="body2">{patientDetails.phone}</Typography>
-                    <Typography variant="body2">{patientDetails.email}</Typography>
+                    <Typography variant="body2" sx={{ mb: 1 }}>{patientDetails.phone}</Typography>
+                    <Typography variant="body2" sx={{ mb: 1 }} >{patientDetails.email}</Typography>
                     {patientDetails.insurance && (
-                      <Typography variant="body2">Insurance: {patientDetails.insurance}</Typography>
+                      <Typography variant="body2" sx={{ mb: 1 }} >Insurance: {patientDetails.insurance}</Typography>
                     )}
+                  
                   </Box>
                 </Grid>
                 
-                <Grid item xs={12}>
-                  <Typography variant="subtitle2" color="text.secondary">Appointment Information</Typography>
+                <Grid item xs={12} >
+                  <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>Appointment Information</Typography>
                   <Typography variant="body1">
                     {appointmentDetails.visitType === 'in-person' ? 'In-person Visit' : 'Video Consultation'}
                   </Typography>
-                  <Typography variant="body2">
+                  <Typography variant="body2" >
                     Date: {formatDate(appointmentDetails.appointmentDate)}
                   </Typography>
-                  <Typography variant="body2">
+                  <Typography variant="body2" sx={{ mb: 1 }}>
                     Time: {appointmentDetails.timeSlot}
                   </Typography>
-                  <Typography variant="body2">
+                  <Typography variant="body2"  >
                     Doctor: {doctors.find(d => d.id === appointmentDetails.doctorId)?.name}
                   </Typography>
                   <Typography variant="body2">
@@ -143,7 +145,7 @@ const ConfirmationScreen = ({ appointmentId, patientDetails, appointmentDetails,
             
             <Grid item xs={12}>
               <Divider className="my-2" />
-              <Typography variant="subtitle2" color="text.secondary">Reason for Visit</Typography>
+              <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>Reason for Visit</Typography>
               <Typography variant="body2">{appointmentDetails.reasonForVisit}</Typography>
             </Grid>
             
@@ -159,7 +161,7 @@ const ConfirmationScreen = ({ appointmentId, patientDetails, appointmentDetails,
         </CardContent>
       </Card>
       
-      <Box className="flex flex-wrap justify-between gap-4">
+      <Box className="flex flex-wrap justify-between gap-4" sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 2, mt: 3 }} >
         <Button
           variant="outlined"
           startIcon={<ArrowBack />}
@@ -169,7 +171,7 @@ const ConfirmationScreen = ({ appointmentId, patientDetails, appointmentDetails,
           Make Another Appointment
         </Button>
         
-        <Box className="flex gap-2">
+        <Box className="flex gap-2"  sx={{ display: 'flex', gap: 4}}>
           <Button
             variant="outlined"
             startIcon={<Print />}
