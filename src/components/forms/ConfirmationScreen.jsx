@@ -111,12 +111,12 @@ const ConfirmationScreen = ({ appointmentId, patientDetails, appointmentDetails,
                   <Box>
                 
                     <Typography variant="subtitle2" color="text.secondary"sx={{ mb: 1 }} >Patient Information</Typography>
-                    <Typography variant="body1" sx={{ mb: 1 }} >{patientDetails.fullName}</Typography>
-                    <Typography variant="body2" sx={{ mb: 1 }} >
+                    <Typography variant="body1" >{patientDetails.fullName}</Typography>
+                    <Typography variant="body2">
                       {patientDetails.gender}, {patientDetails.age} years
                     </Typography>
-                    <Typography variant="body2" sx={{ mb: 1 }}>{patientDetails.phone}</Typography>
-                    <Typography variant="body2" sx={{ mb: 1 }} >{patientDetails.email}</Typography>
+                    <Typography variant="body2" >{patientDetails.phone}</Typography>
+                    <Typography variant="body2"  >{patientDetails.email}</Typography>
                     {patientDetails.insurance && (
                       <Typography variant="body2" sx={{ mb: 1 }} >Insurance: {patientDetails.insurance}</Typography>
                     )}
@@ -167,6 +167,7 @@ const ConfirmationScreen = ({ appointmentId, patientDetails, appointmentDetails,
           startIcon={<ArrowBack />}
           size="large"
           onClick={onReset}
+          
         >
           Make Another Appointment
         </Button>
@@ -180,7 +181,7 @@ const ConfirmationScreen = ({ appointmentId, patientDetails, appointmentDetails,
           >
             Print
           </Button>
-          
+         
           <Button
             variant="contained"
             startIcon={<GetApp />}
@@ -190,6 +191,7 @@ const ConfirmationScreen = ({ appointmentId, patientDetails, appointmentDetails,
             Download
           </Button>
         </Box>
+      
       </Box>
     </Box>
   );

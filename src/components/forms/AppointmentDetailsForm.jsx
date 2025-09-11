@@ -78,12 +78,13 @@ const AppointmentDetailsForm = ({ onSubmit, onBack, initialValues }) => {
   }, [formik.values.doctorId, formik.values.appointmentDate]);
 
   return (
-    <Box className="mt-6 md:mt-8">
+    <Box className="mt-6 md:mt-8" sx={{ mt: 6 }} >
       <FormCard 
         title="Appointment Details" 
         subtitle="Select your preferred doctor and appointment time"
         icon={<EventNote fontSize="large" />}
       >
+          
         <form onSubmit={formik.handleSubmit} className="modern-form">
           <Grid container direction="column" spacing={3}>
           

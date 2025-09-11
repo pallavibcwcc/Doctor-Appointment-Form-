@@ -1,46 +1,46 @@
 import { useState } from 'react';
 import { 
   Button, Grid, FormControlLabel, Checkbox, Typography, 
-  Box, Paper, Divider, Alert, Chip, CircularProgress, TextField
+  Box, Paper, Divider, Alert, Chip, CircularProgress, Card, CardContent
 } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import FormCard from '../ui/FormCard';
-import { FactCheck, CheckCircle, ContentCopy, ArrowBack, RestartAlt } from '@mui/icons-material';
+import { 
+  FactCheck, CheckCircle, Person, CalendarToday, 
+  AccessTime, LocationOn, Email, Phone, Shield, 
+  Warning, CheckCircleOutline 
+} from '@mui/icons-material';
 import { doctors, specialties } from '../../data/mockData';
 
 // Validation schema for consent form
 const validationSchema = Yup.object({
-  consentNotifications: Yup.boolean().oneOf([true], 'Please check this box to continue.'),
-  consentTerms: Yup.boolean().oneOf([true], 'Please check this box to continue.'),
+  consentNotifications: Yup.boolean().oneOf([true], 'You must agree to receive notifications'),
 });
 
 const ConsentSubmitForm = ({ onSubmit, onBack, patientDetails, appointmentDetails }) => {
   const [submitting, setSubmitting] = useState(false);
-  const [copied, setCopied] = useState(false);
   
   const formik = useFormik({
     initialValues: {
       consentNotifications: false,
-      consentTerms: false,
-      signatureName: ''
     },
     validationSchema,
-    validateOnMount: true,
     onSubmit: (values) => {
+      console.log('Form submitted with values:', values);
       setSubmitting(true);
-      // Simulate API call
       setTimeout(() => {
-        onSubmit(values);
+        if (onSubmit) {
+          onSubmit(values);
+        } else {
+          console.log('No onSubmit handler provided');
+        }
         setSubmitting(false);
       }, 1000);
     },
   });
 
-  // Disable submit until consents are checked
-  const canSubmit = formik.values.consentNotifications && formik.values.consentTerms && !submitting;
-
-  // Format date for display
+  // Format date
   const formatDate = (date) => {
     if (!date) return '';
     return new Date(date).toLocaleDateString('en-US', {
@@ -50,97 +50,166 @@ const ConsentSubmitForm = ({ onSubmit, onBack, patientDetails, appointmentDetail
     });
   };
 
-  const copySummary = async () => {
-    try {
-      const doctorName = doctors.find(d => d.id === appointmentDetails.doctor)?.name || '';
-      const specialtyName = specialties.find(s => s.id === appointmentDetails.specialty)?.name || '';
-      const text = `Consent Summary\n\nPatient: ${patientDetails.fullName}\nPhone: ${patientDetails.phone}\nEmail: ${patientDetails.email}\n\nAppointment: ${specialtyName} with ${doctorName}\nWhen: ${formatDate(appointmentDetails.date)} at ${appointmentDetails.time}\nType: ${appointmentDetails.type}\nReason: ${appointmentDetails.reasonForVisit}\nSymptoms: ${(appointmentDetails.symptoms || []).join(', ')}`;
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    } catch (e) {
-      // no-op
-    }
-  };
-
   return (
-    <FormCard 
-      title="Consent Form Template" 
-      subtitle="Review the information and confirm your consent"
-      icon={<FactCheck fontSize="large" />}
-    >
-      <form onSubmit={formik.handleSubmit} className="consent-form">
-        <Grid container spacing={3}>
-          {/* Left column: small cards */}
-          <Grid item xs={12} md={5}>
-            <Box className="space-y-3"              
-            //  sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 2, mt: 3 }} 
->
-              <Paper elevation={0} className="p-5 md:p-6 rounded-xl border shadow-sm bg-white/70" >
-                <Typography variant="subtitle1" className="mb-2">Patient Information</Typography>
-                <Divider className="my-2" />
-                <Typography variant="body1">{patientDetails.fullName}</Typography>
-                <Typography variant="body2">{patientDetails.gender}, {patientDetails.age} years</Typography>
-                <Typography variant="body2">{patientDetails.phone}</Typography>
-                <Typography variant="body2">{patientDetails.email}</Typography>
-                {patientDetails.insurance && (
-                  <Typography variant="body2">Insurance: {patientDetails.insurance}</Typography>
-                )}
-              </Paper>
-
-              <Paper elevation={0} className="p-5 md:p-6 rounded-xl border shadow-sm bg-white/70"
-                            sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 2, mt: 3 }} 
-
-              >
-                <Typography variant="subtitle1" className="mb-2">Procedure Details</Typography>
-                <Divider className="my-2" />
-                <Typography variant="body1">
-                  {specialties.find(s => s.id === appointmentDetails.specialty)?.name} with {doctors.find(d => d.id === appointmentDetails.doctor)?.name}
-                </Typography>
-                <Typography variant="body2">{formatDate(appointmentDetails.date)} at {appointmentDetails.time}</Typography>
-                <Typography variant="body2">Type: {appointmentDetails.type}</Typography>
-                <Divider className="my-2" />
-                <Typography variant="subtitle2" color="text.secondary">Reason</Typography>
-                <Typography variant="body2">{appointmentDetails.reasonForVisit}</Typography>
-                {!!(appointmentDetails.symptoms && appointmentDetails.symptoms.length) && (
-                  <>
-                    <Typography variant="subtitle2" color="text.secondary" className="mt-2">Symptoms</Typography>
-                    <Box className="flex flex-wrap gap-1 mt-1">
-                      {appointmentDetails.symptoms.map((symptom) => (
-                        <Chip key={symptom} label={symptom} size="small" />
-                      ))}
-                    </Box>
-                  </>
-                )}
-              </Paper>
-
-              <Paper elevation={0} className="p-5 md:p-6 rounded-xl border shadow-sm bg-white/70"      
-                       sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 2, mt: 3 }} 
->
-                <Typography variant="subtitle1" className="mb-2">Risks and Benefits</Typography>
-                <Divider className="my-2" />
-                <ul className="list-disc pl-5 text-sm text-gray-700">
-                  <li>Benefits: timely care and reminders to help you prepare.</li>
-                  <li>Risks: rare schedule changes, telehealth limitations if selected.</li>
-                  <li>Your data is protected and used only to manage your appointment.</li>
-                </ul>
-              </Paper>
+    <Box className="min-h-screen bg-gray-100 py-8 px-4">
+      <Box className="max-w-5xl mx-auto">
+        <form onSubmit={formik.handleSubmit}>
+          {/* Header Section */}
+          <Box className="text-center mb-8">
+            <Box className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+              <CheckCircleOutline className="text-gray-600 text-3xl" />
             </Box>
-          </Grid>
-          
-          {/* Right column: Signature Section */}
-          <Grid item xs={12} md={7}               sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 2, mt: 3 }} 
->
-            <Paper elevation={0} className="p-5 md:p-6 rounded-xl border shadow-sm bg-white/70 relative">
-              <Box className="flex items-center justify-between mb-2">
-                <Typography variant="subtitle1">Signature Section</Typography>
-                <Button onClick={copySummary} size="small" startIcon={<ContentCopy />}> 
-                  {copied ? 'Copied' : 'Copy'}
-                </Button>
-              </Box>
-              <Divider className="my-2" />
+            <Typography variant="h3" className="text-gray-800 font-bold mb-2">
+              Review Your Appointment
+            </Typography>
+            <Typography variant="h6" className="text-gray-600 font-normal">
+              Please review your details before confirming
+            </Typography>
+          </Box>
 
-              <Box className="space-y-3">
+          <Box className="space-y-6" >
+            {/* Patient Information Section */}
+            <Card className="rounded-lg shadow-sm border-0 bg-white">
+              <CardContent className="p-6">
+                <Box className="flex items-center mb-6">
+                  <Person className="text-gray-600 mr-3 text-xl" />
+                  <Typography variant="h6" className="text-gray-800 font-medium">
+                    Patient Information
+                  </Typography>
+                </Box>
+                <Divider className="my-4" />
+
+                <Grid container spacing={4}>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" className="text-gray-500 mb-2 font-medium">Full Name</Typography>
+                    <Typography variant="body1" className="text-gray-800">{patientDetails.fullName}</Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" className="text-gray-500 mb-2 font-medium">Age</Typography>
+                    <Typography variant="body1" className="text-gray-800">{patientDetails.age} years old</Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Box className="flex items-center mb-2">
+                      <Email className="text-gray-600 mr-2 text-lg" />
+                      <Typography variant="body2" className="text-gray-500 font-medium">Email</Typography>
+                    </Box>
+                    <Typography variant="body1" className="text-gray-800 ml-7">{patientDetails.email}</Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" className="text-gray-500 mb-2 font-medium">Gender</Typography>
+                    <Typography variant="body1" className="text-gray-800">{patientDetails.gender}</Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Box className="flex items-center mb-2">
+                      <Phone className="text-gray-600 mr-2 text-lg" />
+                      <Typography variant="body2" className="text-gray-500 font-medium">Phone</Typography>
+                    </Box>
+                    <Typography variant="body1" className="text-gray-800 ml-7">{patientDetails.phone}</Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Box className="flex items-center mb-2">
+                      <Shield className="text-gray-600 mr-2 text-lg" />
+                      <Typography variant="body2" className="text-gray-500 font-medium">Insurance</Typography>
+                    </Box>
+                    <Typography variant="body1" className="text-gray-800 ml-7">{patientDetails.insurance || 'na'}</Typography>
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
+
+            {/* Appointment Details Section */}
+            <Card className="rounded-lg shadow-sm border-0 bg-white">
+              <CardContent className="p-6">
+                <Box className="flex items-center mb-6">
+                  <CalendarToday className="text-blue-400 mr-3 text-xl" />
+                  <Typography variant="h6" className="text-gray-800 font-bold">
+                    Appointment Details
+                  </Typography>
+                </Box>
+                <Divider className="my-4" />
+                
+                {/* Doctor Information */}
+                <Box className="flex items-center justify-between mb-6"  sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 2, mt: 3 }} >
+                  <Box>
+                    <Typography variant="h6" className="text-gray-800 font-bold mb-1">
+                      {doctors.find(d => d.id === appointmentDetails.doctorId)?.name || 'Dr. Emily Rodriguez'}
+                    </Typography>
+                    <Typography variant="body2" className="text-gray-500">
+                      {specialties.find(s => s.id === appointmentDetails.specialtyId)?.name || 'Dermatology'}
+                    </Typography>
+                  </Box>
+                  <Chip 
+                    icon={<LocationOn className="text-white" />}
+                    label={appointmentDetails.visitType === 'in-person' ? 'In-Person' : 'Video'}
+                    className="bg-blue-500 text-white"
+                    size="small"
+                  />
+                </Box>
+
+                {/* Date and Time */}
+                <Grid container spacing={4} className="mb-6">
+                  <Grid item xs={6}>
+                    <Typography variant="body2" className="text-gray-400 mb-2">Date</Typography>
+                    <Box className="flex items-center">
+                      <CalendarToday className="text-gray-400 mr-2 text-sm" />
+                      <Typography variant="body1" className="text-gray-800">
+                        {formatDate(appointmentDetails.appointmentDate)}
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" className="text-gray-400 mb-2">Time</Typography>
+                    <Box className="flex items-center">
+                      <AccessTime className="text-gray-400 mr-2 text-sm" />
+                      <Typography variant="body1" className="text-gray-800">
+                        {appointmentDetails.timeSlot}
+                      </Typography>
+                    </Box>
+                  </Grid>
+                </Grid>
+
+                {/* Reason for Visit */}
+                <Box className="mb-4">
+                  <Typography variant="body2" className="text-gray-400 mb-2">Reason for Visit</Typography>
+                  <Typography variant="body1" className="text-gray-800">
+                    {appointmentDetails.reasonForVisit || 'kjksjdksjdksjdksdjksdjksd'}
+                  </Typography>
+                </Box>
+
+                {/* Symptoms */}
+                <Box>
+                  <Typography variant="body2" className="text-gray-400 mb-2">Symptoms</Typography>
+                  <Box className="flex flex-wrap gap-2">
+                    {appointmentDetails.symptoms?.map((symptom) => (
+                      <Chip 
+                        key={symptom} 
+                        label={symptom} 
+                        size="small" 
+                        className="bg-gray-100 text-gray-700"
+                      />
+                    ))}
+                    {(!appointmentDetails.symptoms || appointmentDetails.symptoms.length === 0) && (
+                      <Chip 
+                        label="Fatigue" 
+                        size="small" 
+                        className="bg-gray-100 text-gray-700"
+                      />
+                    )}
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+
+            {/* Consent & Terms Section */}
+            <Card className="rounded-lg shadow-sm border-0 bg-white">
+              <CardContent className="p-6">
+                <Box className="flex items-center mb-6">
+                  <Warning className="text-gray-600 mr-3 text-xl" />
+                  <Typography variant="h6" className="text-gray-800 font-medium">
+                    Consent & Terms
+                  </Typography>
+                </Box>
+                
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -148,96 +217,66 @@ const ConsentSubmitForm = ({ onSubmit, onBack, patientDetails, appointmentDetail
                       checked={formik.values.consentNotifications}
                       onChange={formik.handleChange}
                       color="primary"
-                      inputProps={{ 'aria-describedby': 'help-notifications' }}
                     />
                   }
-                  label="Send me appointment updates by SMS/email"
+                  label={
+                    <Box>
+                      <Typography variant="body1" className="text-gray-800">
+                        I agree to receive SMS/Email notifications regarding my appointment.
+                      </Typography>
+                      <Typography variant="body2" className="text-gray-500 mt-1">
+                        You will receive appointment reminders, confirmations, and important updates via SMS and email. You can opt out at any time.
+                      </Typography>
+                    </Box>
+                  }
                 />
                 {formik.touched.consentNotifications && formik.errors.consentNotifications && (
-                  <Alert severity="error" className="mt-1">{formik.errors.consentNotifications}</Alert>
+                  <Alert severity="error" className="mt-2">{formik.errors.consentNotifications}</Alert>
                 )}
-                <Typography id="help-notifications" variant="caption" color="text.secondary" className="block">
-                  We only send reminders and important updates. You can opt out anytime.
-                </Typography>
-                
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      name="consentTerms"
-                      checked={formik.values.consentTerms}
-                      onChange={formik.handleChange}
-                      color="primary"
-                      inputProps={{ 'aria-describedby': 'help-terms' }}
-                    />
-                  }
-                  label="I agree to the clinic’s terms of care and privacy policy"
-                />
-                {formik.touched.consentTerms && formik.errors.consentTerms && (
-                  <Alert severity="error" className="mt-1">{formik.errors.consentTerms}</Alert>
-                )}
-                <Typography id="help-terms" variant="caption" color="text.secondary" className="block">
-                  This allows us to provide your care and keep your data safe.
-                </Typography>
+              </CardContent>
+            </Card>
 
-                <Box className="mt-2">
-                  <Typography variant="subtitle2" className="mb-1">Signature (optional)</Typography>
-                  <TextField
-                    fullWidth
-                    name="signatureName"
-                    value={formik.values.signatureName}
-                    onChange={formik.handleChange}
-                    placeholder="Type your full name"
-                    size="medium"
-                  />
-                </Box>
-              </Box>
-
-              <Divider className="my-4" />
-
-              <Box className="flex flex-col sm:flex-row justify-between gap-2" 
-              sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 2, mt: 3 }} 
-       
+            {/* Action Buttons */}
+            <Box className="flex justify-between mt-8" sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 2, mt: 3 }}  >
+              <Button 
+                variant="outlined" 
+                onClick={onBack}
+                size="large"
+                disabled={submitting}
+                className="px-6 py-3 border-gray-400 text-gray-700 hover:border-gray-500 bg-gray-50"
               >
-                <Button 
-                  variant="outlined" 
-                  color="primary" 
-                  onClick={onBack}
-                  size="large"
-                  startIcon={<ArrowBack />}
-                  disabled={submitting}
-                >
-                  Back
-                </Button>
-                <Box className="flex items-center gap-2">
-                  <Button 
-                    variant="text" 
-                    color="inherit" 
-                    size="medium"
-                    type="reset"
-                    onClick={() => formik.resetForm()}
-                    startIcon={<RestartAlt />}
-                    disabled={submitting}
-                  >
-                    Start over
-                  </Button>
-                  <Button 
-                    type="submit" 
-                    variant="contained" 
-                    color="primary" 
-                    size="large"
-                    className="px-8 w-full sm:w-auto"
-                    disabled={!canSubmit}
-                    startIcon={submitting ? <CircularProgress size={20} /> : <CheckCircle />}
-                  >
-                    {submitting ? 'Booking...' : 'Confirm & Book'}
-                  </Button>
-                </Box>
-              </Box>
-            </Paper>
-          </Grid>
-        </Grid>
-      </form>
-    </FormCard>
+                Back to Edit Details
+              </Button>
+              <Button 
+                variant="outlined" 
+                onClick={() => formik.resetForm()}
+                size="large"
+                disabled={submitting}
+                className="px-6 py-3 border-gray-400 text-gray-700 hover:border-gray-500 bg-gray-50"
+              >
+                Reset Form
+              </Button>
+              <Button 
+                type="submit" 
+                variant="contained" 
+                size="large"
+                disabled={submitting || !formik.isValid}
+                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white"
+                startIcon={submitting ? <CircularProgress size={20} /> : <CheckCircle />}
+                onClick={() => {
+                  console.log('Button clicked');
+                  console.log('Form valid:', formik.isValid);
+                  console.log('Form values:', formik.values);
+                  console.log('Form errors:', formik.errors);
+                }}
+              >
+                {submitting ? 'Confirming...' : 'Confirm Appointment'}
+              </Button>
+            </Box>
+          </Box>
+        </form>
+      </Box>
+    </Box>
   );
 };
 

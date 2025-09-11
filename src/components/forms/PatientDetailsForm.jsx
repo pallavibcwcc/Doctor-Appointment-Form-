@@ -1,11 +1,13 @@
-import { TextField, Button, MenuItem, FormControl, FormHelperText, Box, Select } from '@mui/material';
+import { TextField, Button, Grid, MenuItem, FormControl, FormHelperText, Box, InputLabel, Select, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import FormCard from '../ui/FormCard';
 import { Person, LocalHospital } from '@mui/icons-material';
 import './PatientDetailsForm.css'; // external CSS
-import doctorImage from '../../assets/doctor.png';
-
+// Using a remote doctor image instead of local file
+import doctorImage from '../../assets/doctor.png'
+// const doctorImage = 'https://t3.ftcdn.net/jpg/03/19/52/64/240_F_319526449_XOvMGnNoLlPKUgVqPNscEhDsZvlmBSbY.jpg';
+<img src={doctorImage} alt="Doctor" className="doctor-image" />
 // Validation schema
 const validationSchema = Yup.object({
   fullName: Yup.string().required('Full name is required'),
@@ -38,7 +40,8 @@ const PatientDetailsForm = ({ onSubmit }) => {
   });
 
   return (
-    <Box mt={{ xs: 1.5, sm: 2 }}>
+    <>
+      <Box mt={{ xs: 1.5, sm: 2 }} sx={{ mt: 6 }}>
       <FormCard
         title="Patient Details"
         subtitle="Please provide your personal information"
@@ -55,42 +58,43 @@ const PatientDetailsForm = ({ onSubmit }) => {
             <LocalHospital fontSize="large" />
           </div>
         </div>
-
         <form onSubmit={formik.handleSubmit} className="modern-form">
-          {/* Row 1: Full Name (full width) */}
-          <div className="form-row single-column">
+        <Grid container spacing={3} direction="column">
+          <Grid item xs={12}>
+             <label>fullName*</label>
             <TextField
               fullWidth
               id="fullName"
               name="fullName"
-              placeholder="Full Name *"
+       
               variant="outlined"
               value={formik.values.fullName}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.fullName && Boolean(formik.errors.fullName)}
               helperText={formik.touched.fullName && formik.errors.fullName}
+               autoComplete="off"
+  spellCheck={false}
             />
-          </div>
+          </Grid>
 
-          {/* Row 2: Gender and Age */}
-          <div className="form-row two-columns">
+          <Grid item xs={12}>
             <FormControl
               fullWidth
               variant="outlined"
               error={formik.touched.gender && Boolean(formik.errors.gender)}
             >
+              <InputLabel id="gender-label"></InputLabel>
+              <label>Gender*</label>
               <Select
+                labelId="gender-label"
                 id="gender"
                 name="gender"
                 value={formik.values.gender}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                displayEmpty
+               
               >
-                <MenuItem value="" disabled>
-                  Gender *
-                </MenuItem>
                 <MenuItem value="male">Male</MenuItem>
                 <MenuItem value="female">Female</MenuItem>
                 <MenuItem value="other">Other</MenuItem>
@@ -100,12 +104,15 @@ const PatientDetailsForm = ({ onSubmit }) => {
                 <FormHelperText>{formik.errors.gender}</FormHelperText>
               )}
             </FormControl>
+          </Grid>
 
+          <Grid item xs={12}>
+<label>Age*</label>
             <TextField
               fullWidth
               id="age"
               name="age"
-              placeholder="Age *"
+            
               type="number"
               variant="outlined"
               value={formik.values.age}
@@ -115,15 +122,15 @@ const PatientDetailsForm = ({ onSubmit }) => {
               helperText={formik.touched.age && formik.errors.age}
               inputProps={{ min: 0, max: 120 }}
             />
-          </div>
+          </Grid>
 
-          {/* Row 3: Phone and Email */}
-          <div className="form-row two-columns">
+          <Grid item xs={12}>
+               <label>Phone Number* </label>
             <TextField
               fullWidth
               id="phone"
               name="phone"
-              placeholder="Phone Number *"
+              
               variant="outlined"
               value={formik.values.phone}
               onChange={formik.handleChange}
@@ -131,12 +138,15 @@ const PatientDetailsForm = ({ onSubmit }) => {
               error={formik.touched.phone && Boolean(formik.errors.phone)}
               helperText={formik.touched.phone && formik.errors.phone}
             />
+          </Grid>
 
+          <Grid item xs={12}>
+             <label>Email *</label>
             <TextField
               fullWidth
               id="email"
               name="email"
-              placeholder="Email *"
+            placeholder='Email'
               type="email"
               variant="outlined"
               value={formik.values.email}
@@ -145,33 +155,36 @@ const PatientDetailsForm = ({ onSubmit }) => {
               error={formik.touched.email && Boolean(formik.errors.email)}
               helperText={formik.touched.email && formik.errors.email}
             />
-          </div>
+          </Grid>
 
-          {/* Row 4: Insurance (full width) */}
-          <div className="form-row single-column">
+          <Grid item xs={12}>
+            <label>Insurance (optional)</label>
             <TextField
               fullWidth
               id="insurance"
               name="insurance"
-              placeholder="Insurance (optional)"
               variant="outlined"
+              placeholder='Insurance (optional)'
               value={formik.values.insurance}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.insurance && Boolean(formik.errors.insurance)}
               helperText={formik.touched.insurance && formik.errors.insurance}
             />
-          </div>
+          </Grid>
 
-          {/* Submit Button */}
-          <Box display="flex" justifyContent={{ xs: 'center', sm: 'flex-end' }} mt={1}>
-            <Button type="submit" variant="contained" size="large" className="modern-button">
-              Next
-            </Button>
-          </Box>
-        </form>
-      </FormCard>
+          <Grid item xs={12}>
+            <Box display="flex" justifyContent={{ xs: 'center', sm: 'flex-end' }}>
+              <Button type="submit" variant="contained" size="large" className="modern-button">
+                Next
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
+      </form>
+    </FormCard>
     </Box>
+    </>
   );
 };
 

@@ -130,7 +130,7 @@ const DoctorCalendarView = ({ onClose }) => {
             {monthNames[month]} {year}
           </Typography>
           
-          <Box>
+          <Box sx={{ mb: 2 }}>
             <Button 
               startIcon={<ChevronLeft />} 
               onClick={prevMonth}
